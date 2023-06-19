@@ -1,7 +1,7 @@
 
 //#include "stdafx.h"
-#include "../common/GLShader.h"
-//#define GLEW_STATIC
+#include "GLShader.h"
+#define GLEW_STATIC 1
 #include "GL/glew.h"
 
 #include <fstream>
@@ -160,3 +160,4 @@ void GLShader::Destroy()
 	glDeleteShader(m_FragmentShader);
 	glDeleteProgram(m_Program);
 }
+

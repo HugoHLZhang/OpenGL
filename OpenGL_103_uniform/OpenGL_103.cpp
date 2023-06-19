@@ -156,9 +156,9 @@ struct Application
 };
 int main(void)
 {
-    GLFWwindow* window;
     Application application;
 
+    GLFWwindow* window;
     /* Initialize the library */
     if (!glfwInit())
         return -1;

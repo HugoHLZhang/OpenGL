@@ -1,10 +1,11 @@
 #pragma once
 
 #include <cstdint>
-
+#include <string>
 class GLShader
 {
 private:
+	std::string m_Name;
 	// un programme fait le liens entre Vertex Shader et Fragment Shader
 	uint32_t m_Program;
 	// Un Vertex Shader est execute pour chaque sommet (vertex)
@@ -17,10 +18,8 @@ private:
 
 	bool CompileShader(uint32_t type);
 public:
-	GLShader() : m_Program(0), m_VertexShader(0),
-		m_GeometryShader(0), m_FragmentShader(0) {
-
-	}
+	GLShader(std::string name = "") : m_Program(0), m_VertexShader(0),
+		m_GeometryShader(0), m_FragmentShader(0), m_Name(name) {}
 	~GLShader() {}
 
 	inline uint32_t GetProgram() { return m_Program; }
@@ -30,4 +29,5 @@ public:
 	bool LoadFragmentShader(const char* filename);
 	bool Create();
 	void Destroy();
+	std::string GetName() { return m_Name; }
 };

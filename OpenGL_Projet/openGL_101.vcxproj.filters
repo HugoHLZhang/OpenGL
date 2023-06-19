@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="glutilities">
+      <UniqueIdentifier>{b45e8c60-da0a-4977-baef-1f46999521ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{68afed17-5979-4973-8a70-a11eecc6d506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{da72a1f7-f970-4c6f-9497-62e41792829f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{4e15f115-aedb-42dd-84ea-69971a0cc500}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="openGL_101_model.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glutilities\IndexBuffer.cpp">
+      <Filter>glutilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glutilities\Texture.cpp">
+      <Filter>glutilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glutilities\VertexArray.cpp">
+      <Filter>glutilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glutilities\VertexBuffer.cpp">
+      <Filter>glutilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\GLShader.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glutilities\GLObject.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\imgui\imgui_impl_glfw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\imgui\imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\libs\imgui\imgui_impl_opengl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glutilities\Camera.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\Object_Loader.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glutilities\Skybox.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glutilities\UniformBuffer.cpp">
+      <Filter>glutilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\glutilities\IndexBuffer.h">
+      <Filter>glutilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glutilities\Texture.h">
+      <Filter>glutilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glutilities\VertexArray.h">
+      <Filter>glutilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glutilities\VertexBuffer.h">
+      <Filter>glutilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glutilities\BufferLayout.h">
+      <Filter>glutilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\GLShader.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Struct.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glutilities\GLObject.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Matrix.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imgui_impl_glfw.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imstb_rectpack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imstb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imstb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imgui_impl_opengl3.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glutilities\Camera.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Vector.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Object_Loader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glutilities\Skybox.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glutilities\UniformBuffer.h">
+      <Filter>glutilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\shaders\skybox.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\skybox.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\Hemisphere.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\Hemisphere.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\Ambient.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\Ambient.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\Ambient_Diffuse.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\Ambient_Diffuse.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\Ambient_Diffuse_Specular.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\Ambient_Diffuse_Specular.vs">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
