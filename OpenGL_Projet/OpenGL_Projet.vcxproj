@@ -187,6 +187,9 @@
     <ClInclude Include="..\libs\imgui\imstb_rectpack.h" />
     <ClInclude Include="..\libs\imgui\imstb_textedit.h" />
     <ClInclude Include="..\libs\imgui\imstb_truetype.h" />
+    <ClInclude Include="DragonData.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\Ambient.fs" />
@@ -199,6 +202,8 @@
     <None Include="..\shaders\Hemisphere.vs" />
     <None Include="..\shaders\skybox.fs" />
     <None Include="..\shaders\skybox.vs" />
+    <None Include="texture_material_blinnphong.fs.glsl" />
+    <None Include="transform.vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

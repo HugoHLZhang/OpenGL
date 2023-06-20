@@ -27,8 +27,6 @@ bool ValidateShader(GLuint shader)
 
 			delete[] infoLog;
 		}
-
-		// on supprime le shader object car il est inutilisable
 		glDeleteShader(shader);
 
 		return false;
@@ -39,7 +37,6 @@ bool ValidateShader(GLuint shader)
 
 bool GLShader::LoadVertexShader(const char* filename)
 {
-	// 1. Charger le fichier en memoire
 	std::ifstream fin(filename, std::ios::in | std::ios::binary);
 	fin.seekg(0, std::ios::end);
 	uint32_t length = (uint32_t)fin.tellg();
@@ -48,24 +45,18 @@ bool GLShader::LoadVertexShader(const char* filename)
 	buffer = new char[length + 1];
 	buffer[length] = '\0';
 	fin.read(buffer, length);
-
-	// 2. Creer le shader object
 	m_VertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(m_VertexShader, 1, &buffer, nullptr);
-	// 3. Le compiler
 	glCompileShader(m_VertexShader);
-	// 4. Nettoyer
 	delete[] buffer;
-	fin.close();	// non obligatoire ici
+	fin.close();
 
-	// 5. 
-	// verifie le status de la compilation
 	return ValidateShader(m_VertexShader);
 }
 
 bool GLShader::LoadGeometryShader(const char* filename)
 {
-	// 1. Charger le fichier en memoire
+
 	std::ifstream fin(filename, std::ios::in | std::ios::binary);
 	fin.seekg(0, std::ios::end);
 	uint32_t length = (uint32_t)fin.tellg();
@@ -75,17 +66,15 @@ bool GLShader::LoadGeometryShader(const char* filename)
 	buffer[length] = '\0';
 	fin.read(buffer, length);
 
-	// 2. Creer le shader object
+
 	m_GeometryShader = glCreateShader(GL_GEOMETRY_SHADER);
 	glShaderSource(m_GeometryShader, 1, &buffer, nullptr);
-	// 3. Le compiler
 	glCompileShader(m_GeometryShader);
-	// 4. Nettoyer
-	delete[] buffer;
-	fin.close();	// non obligatoire ici
 
-					// 5. 
-					// verifie le status de la compilation
+	delete[] buffer;
+	fin.close();	
+
+
 	return ValidateShader(m_GeometryShader);
 }
 
@@ -100,17 +89,11 @@ bool GLShader::LoadFragmentShader(const char* filename)
 	buffer[length] = '\0';
 	fin.read(buffer, length);
 
-	// 2. Creer le shader object
 	m_FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(m_FragmentShader, 1, &buffer, nullptr);
-	// 3. Le compiler
 	glCompileShader(m_FragmentShader);
-	// 4. Nettoyer
 	delete[] buffer;
-	fin.close();	// non obligatoire ici
-
-	// 5. 
-	// verifie le status de la compilation
+	fin.close();
 	return ValidateShader(m_FragmentShader);
 }
 
@@ -125,7 +108,6 @@ bool GLShader::Create()
 
 	int32_t linked = 0;
 	int32_t infoLen = 0;
-	// verification du statut du linkage
 	glGetProgramiv(m_Program, GL_LINK_STATUS, &linked);
 
 	if (!linked)
@@ -160,4 +142,3 @@ void GLShader::Destroy()
 	glDeleteShader(m_FragmentShader);
 	glDeleteProgram(m_Program);
 }
-

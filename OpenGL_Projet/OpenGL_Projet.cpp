@@ -92,29 +92,10 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    // Decide GL+GLSL versions
-#if defined(IMGUI_IMPL_OPENGL_ES2)
-    // GL ES 2.0 + GLSL 100
-    const char* glsl_version = "#version 100";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-#elif defined(__APPLE__)
-    // GL 3.2 + GLSL 150
-    const char* glsl_version = "#version 150";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
-#else
     // GL 3.0 + GLSL 130
     const char* glsl_version = "#version 130";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
-#endif
-
     glfwWindowHint(GLFW_SAMPLES, 16);
 
     window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "OpenGL", NULL, NULL);
@@ -133,6 +114,8 @@ int main(void)
     glfwSetScrollCallback(window, scrollCallback);
 	glfwSetMouseButtonCallback(window, mouseInputCallback);
 
+
+    //ImGui
     ImGui::CreateContext();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
@@ -398,7 +381,7 @@ int main(void)
         }
 		
         if (!isOrtho)
-            //skybox->Render();
+            skybox->Render();
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         
@@ -421,24 +404,6 @@ void inputCallback(GLFWwindow* window, int key, int scancode, int action, int mo
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-
-	if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
-        currentCamera->ProcessKeyboard(deltaTime, FORWARD);
-	if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		currentCamera->ProcessKeyboard(deltaTime, BACKWARD);
-	if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		currentCamera->ProcessKeyboard(deltaTime, LEFT);
-	if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		currentCamera->ProcessKeyboard(deltaTime, RIGHT);
-
-    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS){
-		std::cout << "Camera position: " << currentCamera->GetOrigin()[0] << ", " << currentCamera->GetOrigin()[1] << ", " << currentCamera->GetOrigin()[2] << std::endl;
-        firstMouse = true;
-        registerMouse = true;
-    }
-    if (key == GLFW_KEY_SPACE && action == GLFW_RELEASE) {
-		registerMouse = false;
-    }
 }
 
 void mouseCallback(GLFWwindow* window, double x_pos, double y_pos) {
@@ -516,12 +481,13 @@ static void createObject(const std::string& path) {
 }
 
 static void createObjects() { 
-
+    /*
     createObject("../resources/Bear.obj");
     createObject("../resources/Bear1.obj");
     createObject("../resources/Fidget_Spinner.obj");
     createObject("../resources/Room.obj");
-    createObject("../resources/TRAIN.obj");
+    createObject("../resources/TRAIN.obj");*/
+    createObject("../resources/cube.obj");
 
 }
 

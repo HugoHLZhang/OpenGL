@@ -24,7 +24,6 @@ class Vector {
 		Vector(Ts && ... Vector) : data{ (float)std::forward<Ts>(Vector)... }
 		{ }
 
-		
 		float dot(const Vector& b) const {
 			float result = 0;
 			for (int i = 0; i < N; i++) {

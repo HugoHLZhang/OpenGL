@@ -29,4 +29,3 @@ struct Vertex
     vec2 uv;
     vec3 normal;
 };
-
