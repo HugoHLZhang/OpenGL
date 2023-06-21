@@ -8,27 +8,6 @@
     <ClCompile Include="..\common\Object_Loader.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\glutilities\Camera.cpp">
-      <Filter>glutilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\glutilities\GLObject.cpp">
-      <Filter>glutilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\glutilities\IndexBuffer.cpp">
-      <Filter>glutilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\glutilities\Skybox.cpp">
-      <Filter>glutilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\glutilities\Texture.cpp">
-      <Filter>glutilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\glutilities\UniformBuffer.cpp">
-      <Filter>glutilities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\glutilities\VertexBuffer.cpp">
-      <Filter>glutilities</Filter>
-    </ClCompile>
     <ClCompile Include="..\libs\imgui\imgui.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -50,8 +29,29 @@
     <ClCompile Include="..\libs\imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\glutilities\VertexArray.cpp">
-      <Filter>glutilities</Filter>
+    <ClCompile Include="..\common\IndexBuffer.cpp">
+      <Filter>Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\UniformBuffer.cpp">
+      <Filter>Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\VertexBuffer.cpp">
+      <Filter>Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\Camera.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\GLObject.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\Skybox.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\Texture.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\VertexArray.cpp">
+      <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,35 +67,8 @@
     <ClInclude Include="..\common\Struct.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Vector.h">
+    <ClInclude Include="..\common\Vertex.h">
       <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\BufferLayout.h">
-      <Filter>glutilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\Camera.h">
-      <Filter>glutilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\GLObject.h">
-      <Filter>glutilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\IndexBuffer.h">
-      <Filter>glutilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\Skybox.h">
-      <Filter>glutilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\Texture.h">
-      <Filter>glutilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\UniformBuffer.h">
-      <Filter>glutilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\VertexArray.h">
-      <Filter>glutilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glutilities\VertexBuffer.h">
-      <Filter>glutilities</Filter>
     </ClInclude>
     <ClInclude Include="..\libs\imgui\imconfig.h">
       <Filter>imgui</Filter>
@@ -124,14 +97,32 @@
     <ClInclude Include="..\libs\imgui\imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Dragon</Filter>
+    <ClInclude Include="..\common\BufferLayout.h">
+      <Filter>Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="DragonData.h">
-      <Filter>Dragon</Filter>
+    <ClInclude Include="..\common\IndexBuffer.h">
+      <Filter>Buffers</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Dragon</Filter>
+    <ClInclude Include="..\common\UniformBuffer.h">
+      <Filter>Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\VertexBuffer.h">
+      <Filter>Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Camera.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\GLObject.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Skybox.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\Texture.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\VertexArray.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,12 +156,6 @@
     <None Include="..\shaders\skybox.vs">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="texture_material_blinnphong.fs.glsl">
-      <Filter>Dragon</Filter>
-    </None>
-    <None Include="transform.vs.glsl">
-      <Filter>Dragon</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shaders">
@@ -179,14 +164,11 @@
     <Filter Include="common">
       <UniqueIdentifier>{54e75004-89f6-4be8-a152-15326bee7d64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="glutilities">
-      <UniqueIdentifier>{f89ce931-7a96-4608-941a-db4e3d36a6ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{24fc3ec5-7cea-4a90-98f3-e7d403b6275d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Dragon">
-      <UniqueIdentifier>{53dfbc58-5159-4e0f-b68b-053de5b05120}</UniqueIdentifier>
+    <Filter Include="Buffers">
+      <UniqueIdentifier>{da3edba7-607d-4f0e-8bc7-476749fe6138}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

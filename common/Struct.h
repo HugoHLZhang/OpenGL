@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include "../common/Vector.h"
+#include "../common/Vertex.h"
 
 struct vec2 {
     float x, y;

@@ -35,9 +35,9 @@ bool ValidateShader(GLuint shader)
 	return true;
 }
 
-bool GLShader::LoadVertexShader(const char* filename)
+bool GLShader::LoadVertexShader(const char* fileName)
 {
-	std::ifstream fin(filename, std::ios::in | std::ios::binary);
+	std::ifstream fin(fileName, std::ios::in | std::ios::binary);
 	fin.seekg(0, std::ios::end);
 	uint32_t length = (uint32_t)fin.tellg();
 	fin.seekg(0, std::ios::beg);
@@ -54,10 +54,10 @@ bool GLShader::LoadVertexShader(const char* filename)
 	return ValidateShader(m_VertexShader);
 }
 
-bool GLShader::LoadGeometryShader(const char* filename)
+bool GLShader::LoadGeometryShader(const char* fileName)
 {
 
-	std::ifstream fin(filename, std::ios::in | std::ios::binary);
+	std::ifstream fin(fileName, std::ios::in | std::ios::binary);
 	fin.seekg(0, std::ios::end);
 	uint32_t length = (uint32_t)fin.tellg();
 	fin.seekg(0, std::ios::beg);
@@ -78,9 +78,9 @@ bool GLShader::LoadGeometryShader(const char* filename)
 	return ValidateShader(m_GeometryShader);
 }
 
-bool GLShader::LoadFragmentShader(const char* filename)
+bool GLShader::LoadFragmentShader(const char* fileName)
 {
-	std::ifstream fin(filename, std::ios::in | std::ios::binary);
+	std::ifstream fin(fileName, std::ios::in | std::ios::binary);
 	fin.seekg(0, std::ios::end);
 	uint32_t length = (uint32_t)fin.tellg();
 	fin.seekg(0, std::ios::beg);

@@ -151,7 +151,7 @@ int main(void)
         ub_view_projection.AddShader(program);
         ub_light.AddShader(program);
     }
-    ub_view_projection.AddShader(skybox->getShader().GetProgram());
+    ub_view_projection.AddShader(skybox->GetShader().GetProgram());
 
 
     Camera camera;

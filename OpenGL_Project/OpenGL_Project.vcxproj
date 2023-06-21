@@ -21,21 +21,21 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{de78153c-712d-4c03-a974-aaa597729c48}</ProjectGuid>
-    <RootNamespace>openGL101</RootNamespace>
+    <ProjectGuid>{7e94a950-060c-476f-b2cb-0acce0bbaa78}</ProjectGuid>
+    <RootNamespace>OpenGLProject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -114,17 +114,15 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\libs\glfw\include;..\libs\glew\include;</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <LanguageStandard_C>Default</LanguageStandard_C>
+      <AdditionalIncludeDirectories>..\libs\glfw\include;..\libs\glew\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\libs\glfw\lib-vc2019;..\libs\glew\lib\Release\x64;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;glfw3dll.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\libs\glew\lib\Release\x64;..\libs\glfw\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,49 +142,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\Camera.cpp" />
-    <ClCompile Include="..\common\GLObject.cpp" />
     <ClCompile Include="..\common\GLShader.cpp" />
-    <ClCompile Include="..\common\IndexBuffer.cpp" />
     <ClCompile Include="..\common\Object_Loader.cpp" />
-    <ClCompile Include="..\common\Skybox.cpp" />
-    <ClCompile Include="..\common\Texture.cpp" />
-    <ClCompile Include="..\common\UniformBuffer.cpp" />
-    <ClCompile Include="..\common\VertexArray.cpp" />
-    <ClCompile Include="..\common\VertexBuffer.cpp" />
-    <ClCompile Include="..\libs\imgui\imgui.cpp" />
-    <ClCompile Include="..\libs\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\libs\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\libs\imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="..\libs\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="..\libs\imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\libs\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="OpenGL_Projet.cpp" />
+    <ClCompile Include="..\glutilities\Camera.cpp" />
+    <ClCompile Include="..\glutilities\GLObject.cpp" />
+    <ClCompile Include="..\glutilities\IndexBuffer.cpp" />
+    <ClCompile Include="..\glutilities\Skybox.cpp" />
+    <ClCompile Include="..\glutilities\Texture.cpp" />
+    <ClCompile Include="..\glutilities\UniformBuffer.cpp" />
+    <ClCompile Include="..\glutilities\VertexArray.cpp" />
+    <ClCompile Include="..\glutilities\VertexBuffer.cpp" />
+    <ClCompile Include="OpenGL_Project.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\BufferLayout.h" />
-    <ClInclude Include="..\common\Camera.h" />
-    <ClInclude Include="..\common\GLObject.h" />
     <ClInclude Include="..\common\GLShader.h" />
-    <ClInclude Include="..\common\IndexBuffer.h" />
     <ClInclude Include="..\common\Matrix.h" />
     <ClInclude Include="..\common\Object_Loader.h" />
-    <ClInclude Include="..\common\Skybox.h" />
-    <ClInclude Include="..\common\Texture.h" />
-    <ClInclude Include="..\common\UniformBuffer.h" />
-    <ClInclude Include="..\common\Vertex.h" />
     <ClInclude Include="..\common\Struct.h" />
-    <ClInclude Include="..\common\VertexArray.h" />
-    <ClInclude Include="..\common\VertexBuffer.h" />
-    <ClInclude Include="..\libs\imgui\imconfig.h" />
-    <ClInclude Include="..\libs\imgui\imgui.h" />
-    <ClInclude Include="..\libs\imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="..\libs\imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="..\libs\imgui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="..\libs\imgui\imgui_internal.h" />
-    <ClInclude Include="..\libs\imgui\imstb_rectpack.h" />
-    <ClInclude Include="..\libs\imgui\imstb_textedit.h" />
-    <ClInclude Include="..\libs\imgui\imstb_truetype.h" />
+    <ClInclude Include="..\common\Vector.h" />
+    <ClInclude Include="..\glutilities\BufferLayout.h" />
+    <ClInclude Include="..\glutilities\Camera.h" />
+    <ClInclude Include="..\glutilities\GLObject.h" />
+    <ClInclude Include="..\glutilities\IndexBuffer.h" />
+    <ClInclude Include="..\glutilities\Skybox.h" />
+    <ClInclude Include="..\glutilities\Texture.h" />
+    <ClInclude Include="..\glutilities\UniformBuffer.h" />
+    <ClInclude Include="..\glutilities\VertexArray.h" />
+    <ClInclude Include="..\glutilities\VertexBuffer.h" />
+    <ClInclude Include="DragonData.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\Ambient.fs" />
@@ -199,6 +184,8 @@
     <None Include="..\shaders\Hemisphere.vs" />
     <None Include="..\shaders\skybox.fs" />
     <None Include="..\shaders\skybox.vs" />
+    <None Include="texture_material_blinnphong.fs.glsl" />
+    <None Include="transform.vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

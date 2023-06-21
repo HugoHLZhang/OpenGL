@@ -5,9 +5,9 @@
 
 #include "Vertex.h"
 
-struct Material2
+struct Material
 {
-    vect3 diffuseColor;
-    vect3 specularColor;
+    vec3 diffuseColor;
+    vec3 specularColor;
     float shininess;
 };

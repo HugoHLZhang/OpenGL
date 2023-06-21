@@ -6,7 +6,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include < cstdio >
-#include "Vector.h"
+#include "Vertex.h"
 template <int M, int N>
 class Matrix {
 
