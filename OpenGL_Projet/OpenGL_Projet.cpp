@@ -36,15 +36,6 @@
 #include <ctime>
 #pragma endregion cpp_libraries
 
-void GLClearError() {
-    while (glGetError() != GL_NO_ERROR);
-
-}
-void GLCheckError() {
-    while (GLenum error = glGetError()) {
-        std::cout << "[OpenGL Error] (" << error << ")" << std::endl;
-    }
-}
 
 std::vector<GLObject*> Objects;
 std::map<std::string, GLShader*> Shaders;
@@ -53,6 +44,10 @@ Skybox* skybox;
 
 int mWidth = 1280;
 int mHeight = 960;
+
+static bool randomLights = false;
+static float lightDelay = 0.2f;
+static float lightTimer = 0.0f;
 
 #pragma region Camera
     #pragma region Variables
@@ -145,15 +140,6 @@ int mHeight = 960;
         AmbientDiffuseSpecularShader->LoadFragmentShader("../shaders/Ambient_Diffuse_Specular.fs");
         AmbientDiffuseSpecularShader->Create();
 
-        GLShader* AmbientDiffuseShader = new GLShader("Ambient_Diffuse");
-        AmbientDiffuseShader->LoadVertexShader("../shaders/Ambient_Diffuse.vs");
-        AmbientDiffuseShader->LoadFragmentShader("../shaders/Ambient_Diffuse.fs");
-        AmbientDiffuseShader->Create();
-
-        GLShader* AmbientShader = new GLShader("Ambient");
-        AmbientShader->LoadVertexShader("../shaders/Ambient.vs");
-        AmbientShader->LoadFragmentShader("../shaders/Ambient.fs");
-        AmbientShader->Create();
 
         GLShader* hemisphereShader = new GLShader("Hemisphere");
         hemisphereShader->LoadVertexShader("../shaders/Hemisphere.vs");
@@ -162,17 +148,14 @@ int mHeight = 960;
 
         defaultShader = AmbientDiffuseSpecularShader;
         Shaders["Ambient_Diffuse_Specular"] = AmbientDiffuseSpecularShader;
-        Shaders["Ambient_Diffuse"] = AmbientDiffuseShader;
-        Shaders["Ambient"] = AmbientShader;
         Shaders["Hemisphere"] = hemisphereShader;
 
         //Create Objects
 
-        createObject("../ressources/cube.obj");
-        createObject("../ressources/cube.obj");
-        createObject("../ressources/cube.obj");
-        createObject("../ressources/cube.obj");
-        createObject("../ressources/cube.obj");
+        createObject("../ressources/blue_box.obj");
+        createObject("../ressources/earth.obj");
+        createObject("../ressources/Only_Spider_with_Animations_Export.obj");
+        createObject("../ressources/Room2.obj");
 
         //Set Objects position in Scene
 
@@ -181,8 +164,8 @@ int mHeight = 960;
             Vector3* rot = obj->GetpRotation();
             Vector3* scale = obj->GetpScale();
 
-            *pos = Vector3(RandomNumber(-25, 25), RandomNumber(-25, 25), RandomNumber(-25, 25));
-            *rot = Vector3(RandomNumber(-25, 25), RandomNumber(-25, 25), RandomNumber(-25, 25));
+            *pos = Vector3(RandomNumber(-10, 10), RandomNumber(-10, 10), RandomNumber(-10, 10));
+            *rot = Vector3(RandomNumber(-10, 10), RandomNumber(-10, 10), RandomNumber(-10, 10));
         }
 
     }
@@ -278,11 +261,11 @@ int main(void)
     float* speed = camera.GetpSpeed();
 	
     Vector4 light_direction = Vector4(0, -0.2, -1, 0);
-    Vector3 light_color = Vector3(0.4, 0.4, 0.4);
+    Vector3 light_color = Vector3(1, 1, 1);
 	float light_intensity = 1.f;
 
-	Vector3 skyColor = Vector3(0.5, 0.5, 1);
-	Vector3 groundColor = Vector3(0.5, 1, 0.5);
+	Vector3 skyColor = Vector3(1, 1, 1);
+	Vector3 groundColor = Vector3(1, 1, 1);
 	
     bool isOrtho = false;
 
@@ -347,8 +330,6 @@ int main(void)
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
             
-            if (ImGui::CollapsingHeader("View")) {
-
                 ImGui::Checkbox("Orthographic", &isOrtho);
 
                 ImGui::SliderFloat("fov", fov, 0.0f, 180.f);
@@ -356,9 +337,7 @@ int main(void)
                 ImGui::SliderFloat("far_plane", &far_plane, 0.0f, 10000.0f);
                 
                 ImGui::SliderFloat3("origin", &cameraOrigin[0], -100.0f, 100.0f);
-                ImGui::SliderFloat3("position", &(*position)[0], -100.0f, 100.0f);
                 ImGui::SliderFloat3("lookat", &(*target)[0], -100.0f, 100.0f);
-                ImGui::SliderFloat3("up", &up[0], -1.0f, 1.0f);
 
                 ImGui::SliderFloat("azimuth", azimuth, -180.0f, 180.0f);
 				ImGui::SliderFloat("elevation", elevation, -90.0f, 90.0f);
@@ -366,90 +345,19 @@ int main(void)
 				
 				ImGui::SliderFloat("speed", speed, 0.0f, 10.0f);
 
-            }
-
-
-            if (ImGui::CollapsingHeader("Objects")) {
-
-
-                static int current_obj_index = 0;
-                if (Objects.size() > 0) {
-
-                    std::string objectName = std::to_string(current_obj_index) + " " + Objects[current_obj_index]->GetName();
-
-                    if (ImGui::BeginCombo("Objects combo", objectName.c_str())) {
-                        for (int i = 0; i < Objects.size(); i++) {
-                            bool is_selected = (current_obj_index == i);
-                            std::string s_name = std::to_string(i) + " " + Objects[i]->GetName();
-                            const char* name = s_name.c_str();
-                            if (ImGui::Selectable(name, is_selected))
-                                current_obj_index = i;
-                            if (is_selected) {
-                                ImGui::SetItemDefaultFocus();
-                            }
-
-                        }
-                        ImGui::EndCombo();
-                    }
-
-                    std::string objectShaderName = Objects[current_obj_index]->GetShaderName();
-
-                    if (ImGui::BeginCombo("Shader combo", objectShaderName.c_str())) {
-
-                        for (const auto& [name, shader] : Shaders) {
-                            bool is_selected = (objectShaderName == name);
-                            std::string shaderName = shader->GetName();
-                            if (ImGui::Selectable(shaderName.c_str(), is_selected))
-                                Objects[current_obj_index]->SetShader(*shader);
-                            if (is_selected) {
-                                ImGui::SetItemDefaultFocus();
-                            }
-                        }
-                        ImGui::EndCombo();
-                    }
-
-                    Vector3* obj_position = Objects[current_obj_index]->GetpPosition();
-                    Vector3* obj_rotation = Objects[current_obj_index]->GetpRotation();
-                    Vector3* obj_scale = Objects[current_obj_index]->GetpScale();
-
-
-                    if (ImGui::Button("Set Focus")) {
-                        *target = *obj_position;
-                        currentCamera->GetOrigin() = *obj_position;
-                        currentCamera->GetTarget() = *obj_position;
-                    }
-
-                    ImGui::SliderFloat3("position", &(*obj_position)[0], -100.0f, 100.0f);
-                    ImGui::SliderFloat3("rotation", &(*obj_rotation)[0], -180.0f, 180.0f);
-                    ImGui::SliderFloat3("scale", &(*obj_scale)[0], -100.0f, 100.0f);
-
-                    if (ImGui::Button("RotationX")) rotateX = !rotateX;
-                    if (ImGui::Button("RotationY")) rotateY = !rotateY;
-                    if (ImGui::Button("RotationZ")) rotateZ = !rotateZ;
-                    ImGui::SliderFloat("Rotation Speed", &rotationSpeed, 0.0f, 10.0f);
-
-                }
-            }
-
             ImGui::Render();
         }
-        
-        for (GLObject* o : Objects) {
-			Vector3* position = o->GetpPosition();
-            Vector3* rotation = o->GetpRotation();
-			Vector3* scale    = o->GetpScale();
-			
-            if(rotateX || rotateY || rotateZ) {				
-                Vector3 new_rotation(0, 0, 0);
-                if (rotateX) new_rotation[0] = time * 360 * rotationSpeed;
-                if (rotateY) new_rotation[1] = time * 360 * rotationSpeed;
-                if (rotateZ) new_rotation[2] = time * 360 * rotationSpeed;
-                *rotation = new_rotation;
-            }
-            o->Render();
+
+
+        for (GLObject* object : Objects) {
+			Vector3* position = object->GetpPosition();
+            Vector3* rotation = object->GetpRotation();
+            Vector3* scale = object->GetpScale();
+
+            object->Render();
         }
-        if (!isOrtho)
-            skybox->Render();
+       
+        skybox->Render();
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         
