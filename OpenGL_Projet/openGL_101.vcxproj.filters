@@ -72,7 +72,7 @@
     <ClCompile Include="..\glutilities\Camera.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\Object_Loader.cpp">
+    <ClCompile Include="..\common\TinyObjLoader.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="..\glutilities\Skybox.cpp">
@@ -101,7 +101,7 @@
     <ClInclude Include="..\common\GLShader.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Struct.h">
+    <ClInclude Include="..\common\ObjData.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\glutilities\GLObject.h">
@@ -143,7 +143,7 @@
     <ClInclude Include="..\common\Vector.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Object_Loader.h">
+    <ClInclude Include="..\common\TinyObjLoader.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\glutilities\Skybox.h">

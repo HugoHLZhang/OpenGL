@@ -148,7 +148,7 @@
     <ClCompile Include="..\common\GLObject.cpp" />
     <ClCompile Include="..\common\GLShader.cpp" />
     <ClCompile Include="..\common\IndexBuffer.cpp" />
-    <ClCompile Include="..\common\Object_Loader.cpp" />
+    <ClCompile Include="..\common\TinyObjLoader.cpp" />
     <ClCompile Include="..\common\Skybox.cpp" />
     <ClCompile Include="..\common\Texture.cpp" />
     <ClCompile Include="..\common\UniformBuffer.cpp" />
@@ -170,12 +170,12 @@
     <ClInclude Include="..\common\GLShader.h" />
     <ClInclude Include="..\common\IndexBuffer.h" />
     <ClInclude Include="..\common\Matrix.h" />
-    <ClInclude Include="..\common\Object_Loader.h" />
+    <ClInclude Include="..\common\TinyObjLoader.h" />
     <ClInclude Include="..\common\Skybox.h" />
     <ClInclude Include="..\common\Texture.h" />
     <ClInclude Include="..\common\UniformBuffer.h" />
     <ClInclude Include="..\common\Vertex.h" />
-    <ClInclude Include="..\common\Struct.h" />
+    <ClInclude Include="..\common\ObjData.h" />
     <ClInclude Include="..\common\VertexArray.h" />
     <ClInclude Include="..\common\VertexBuffer.h" />
     <ClInclude Include="..\libs\imgui\imconfig.h" />
@@ -189,10 +189,6 @@
     <ClInclude Include="..\libs\imgui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\shaders\Ambient.fs" />
-    <None Include="..\shaders\Ambient.vs" />
-    <None Include="..\shaders\Ambient_Diffuse.fs" />
-    <None Include="..\shaders\Ambient_Diffuse.vs" />
     <None Include="..\shaders\Ambient_Diffuse_Specular.fs" />
     <None Include="..\shaders\Ambient_Diffuse_Specular.vs" />
     <None Include="..\shaders\Hemisphere.fs" />

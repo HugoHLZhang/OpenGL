@@ -16,7 +16,7 @@
 #include "../common/Texture.h"
 #include "../common/IndexBuffer.h"
 #include "../common/GLObject.h"
-#include "../common/Object_Loader.h"
+#include "../common/TinyObjLoader.h"
 #include "../common/Skybox.h"
 #include "../common/UniformBuffer.h"
 

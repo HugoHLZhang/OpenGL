@@ -3,7 +3,7 @@
 #include "GL/glew.h"
 
 #include <GLFW/glfw3.h>
-#include "../common/Struct.h"
+#include "../common/ObjData.h"
 
 #include "../common/GLShader.h"
 #include "../common/Matrix.h"
@@ -13,7 +13,7 @@
 #include "../glutilities/Texture.h"
 #include "../glutilities/IndexBuffer.h"
 #include "../glutilities/GLObject.h"
-#include "../common/Object_Loader.h"
+#include "../common/TinyObjLoader.h"
 #include "../glutilities/Skybox.h"
 #include "../glutilities/UniformBuffer.h"
 
@@ -507,7 +507,7 @@ static void createShaders() {
 
 static void createObject(const std::string& path) {
 	GLObject* obj = new GLObject(*defaultShader);
-    if(Object_Loader::ImportObj(path, *obj))
+    if(TinyObjLoader::ImportObj(path, *obj))
 	    Objects.push_back(obj);
     else {
 		std::cout << "Error loading object" << std::endl;

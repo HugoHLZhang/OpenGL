@@ -5,7 +5,7 @@
 
 #pragma region common
 #include "../common/GLShader.h"
-#include "../common/Struct.h"
+#include "../common/ObjData.h"
 #include "../common/Matrix.h"
 #include "../common/VertexArray.h"
 #include "../common/VertexBuffer.h"
@@ -14,7 +14,7 @@
 #include "../common/UniformBuffer.h"
 #include "../common/IndexBuffer.h"
 #include "../common/GLObject.h"
-#include "../common/Object_Loader.h"
+#include "../common/TinyObjLoader.h"
 #include "../common/Skybox.h"
 #include "../common/Camera.h"
 
@@ -36,14 +36,16 @@
 #include <ctime>
 #pragma endregion cpp_libraries
 
+using namespace std;
+using namespace ImGui;
 
-std::vector<GLObject*> Objects;
-std::map<std::string, GLShader*> Shaders;
+vector<GLObject*> Objects;
+map<string, GLShader*> Shaders;
 GLShader* defaultShader;
 Skybox* skybox;
 
 int mWidth = 1280;
-int mHeight = 960;
+int mHeight = 720;
 
 static bool randomLights = false;
 static float lightDelay = 0.2f;
@@ -69,11 +71,6 @@ static float lightTimer = 0.0f;
 
     #pragma endregion Variables
     #pragma region Functions
-    void inputCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-    {
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-            glfwSetWindowShouldClose(window, GL_TRUE);
-    }
 
     void mouseCallback(GLFWwindow* window, double x_pos, double y_pos) {
         if (!registerMouse)
@@ -106,28 +103,37 @@ static float lightTimer = 0.0f;
             registerMouse = false;
         }
     }
+
+    void scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+        currentCamera->ProcessScroll(yoffset);
+    }
     #pragma endregion Functions
 #pragma endregion Camera
 
 #pragma region ObjectFunctions
-    void scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
-        currentCamera->ProcessScroll(yoffset);
+   
+    float RandomNumber(float min, float max)
+    {
+        return ((float(rand()) / float(RAND_MAX)) * (max - min)) + min;
     }
-
-    void createObject(const std::string& path) {
+    void createObject(const string& path) {
         GLObject* obj = new GLObject(*defaultShader);
-        if (Object_Loader::ImportObject(path, *obj))
+        if (TinyObjLoader::ImportObject(path, *obj)){
             Objects.push_back(obj);
+            Vector3* pos = obj->GetpPosition();
+            Vector3* rot = obj->GetpRotation();
+            Vector3* scale = obj->GetpScale();
+
+            *pos = Vector3(RandomNumber(-20, 20), RandomNumber(-20, 20), RandomNumber(-20, 20));
+            *rot = Vector3(RandomNumber(0, 360), RandomNumber(0, 360), RandomNumber(0, 360));
+        }
         else {
-            std::cout << "Problème lors de l'import de l'objet" << std::endl;
+            cout << "Problème lors de l'import de l'objet" << endl;
             delete obj;
         }
     }
 
-    float RandomNumber(float Min, float Max)
-    {
-        return ((float(rand()) / float(RAND_MAX)) * (Max - Min)) + Min;
-    }
+    
 
     void InitializeScene() {
         //Create Skybox
@@ -157,20 +163,10 @@ static float lightTimer = 0.0f;
         createObject("../ressources/Only_Spider_with_Animations_Export.obj");
         createObject("../ressources/Room2.obj");
 
-        //Set Objects position in Scene
-
-        for (auto& obj : Objects) {
-            Vector3* pos = obj->GetpPosition();
-            Vector3* rot = obj->GetpRotation();
-            Vector3* scale = obj->GetpScale();
-
-            *pos = Vector3(RandomNumber(-10, 10), RandomNumber(-10, 10), RandomNumber(-10, 10));
-            *rot = Vector3(RandomNumber(-10, 10), RandomNumber(-10, 10), RandomNumber(-10, 10));
-        }
 
     }
 
-    void cleanUp() {
+    void DeinitializeScene() {
         for (auto o : Objects)
             delete o;
         for (auto s : Shaders) {
@@ -199,7 +195,7 @@ int main(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_SAMPLES, 16);
 
-    window = glfwCreateWindow(mWidth, mHeight, "OpenGL", NULL, NULL);
+    window = glfwCreateWindow(mWidth, mHeight, "OpenGL Projet : Attack On Spider", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -216,36 +212,43 @@ int main(void)
 
 
     //ImGui
-    ImGui::CreateContext();
+    CreateContext();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
-    ImGui::StyleColorsDark();
+    StyleColorsDark();
 
     InitializeScene();
 	
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    UniformBuffer ub_view_projection("Matrices", nullptr, 2 * sizeof(float) * 16);
-    UniformBuffer ub_light("Lights", nullptr, 2 * sizeof(float) * 4);
+    UniformBuffer ubViewProj("Matrices", nullptr, 2 * sizeof(float) * 16);
+    UniformBuffer ubLight("Lights", nullptr, 2 * sizeof(float) * 4);
 
     for (const auto& [name, shader] : Shaders) {
         auto program = shader->GetProgram();
         glUseProgram(program);
-        ub_view_projection.AddShader(program);
-        ub_light.AddShader(program);
+        ubViewProj.AddShader(program);
+        ubLight.AddShader(program);
     }
-    ub_view_projection.AddShader(skybox->GetShader().GetProgram());
+    ubViewProj.AddShader(skybox->GetShader().GetProgram());
 
     Camera camera;
 
     currentCamera = &camera;
     
-    //persp
+    //perspective
+
+
+
+    Matrix4x4 projection;
+    Matrix4x4 view;
+
+    bool isOrtho = false;
 
     float* fov = camera.GetpFOV();
     float* aspect = camera.GetpAspectRatio();
-    float near_plane = 0.1f;
-    float far_plane = 100.0f;
+    float nearPlane = 0.1f;
+    float farPlane = 1000.0f;
 
 	Vector3& cameraOrigin = camera.GetOrigin();
     Vector3* position = camera.GetpPosition();
@@ -260,17 +263,16 @@ int main(void)
     float* sensitivity = camera.GetpSensitivity();
     float* speed = camera.GetpSpeed();
 	
-    Vector4 light_direction = Vector4(0, -0.2, -1, 0);
-    Vector3 light_color = Vector3(1, 1, 1);
-	float light_intensity = 1.f;
+
+    //light
+    Vector4 lightDirection = Vector4(0, -0.2, -1, 0);
+    Vector3 lightColor = Vector3(1, 1, 1);
+	float lightIntensity = 1.f;
 
 	Vector3 skyColor = Vector3(1, 1, 1);
 	Vector3 groundColor = Vector3(1, 1, 1);
 	
-    bool isOrtho = false;
-
-    Matrix4x4 projection;
-    Matrix4x4 view;
+   
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
@@ -288,8 +290,13 @@ int main(void)
         glViewport(0, 0, mWidth, mHeight);
         glClearColor(0.5f, 0.5f, 0.5f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        if (isOrtho) {
+            projection = Matrix4x4::Ortho(0, 1, 0, 1, nearPlane, farPlane);
+        }
+        else {
+            projection = Matrix4x4::Perspective(*fov * M_PI / 180, *aspect, nearPlane, farPlane);
+        }
 
-        projection = isOrtho ? Matrix4x4::Ortho(0, 1, 0, 1, near_plane, far_plane) : Matrix4x4::Perspective(*fov * M_PI / 180, *aspect, near_plane, far_plane);
         view = camera.LookAt(*position, *target, up);
 		
         unsigned int program = Shaders["Hemisphere"]->GetProgram();
@@ -299,22 +306,22 @@ int main(void)
         unsigned int skyColorLocation = glGetUniformLocation(program, "u_SkyColor");
 		unsigned int groundColorLocation = glGetUniformLocation(program, "u_GroundColor");
 
-		glUniform3fv(skyDirLocation, 1, &light_direction[0]);
+		glUniform3fv(skyDirLocation, 1, &lightDirection[0]);
 		glUniform3fv(skyColorLocation, 1, &skyColor[0]);
 		glUniform3fv(groundColorLocation, 1, &groundColor[0]);
 
 		//uniform buffers
         {
             //update matrices unifrom buffer
-            BufferLayout ub_Matrices_layout;
-            ub_Matrices_layout.Push<float>(16); // size of Matrix4x4
-            ub_view_projection.AddData(view.Transpose().GetData(), ub_Matrices_layout, true);
-            ub_view_projection.AddData(projection.Transpose().GetData(), ub_Matrices_layout);
+            BufferLayout ubMatricesLayout;
+            ubMatricesLayout.Push<float>(16); // size of Matrix4x4
+            ubViewProj.AddData(view.Transpose().GetData(), ubMatricesLayout, true);
+            ubViewProj.AddData(projection.Transpose().GetData(), ubMatricesLayout);
 
             //update light uniform buffer
-            ub_light.AddDataf(&light_direction[0], 4, true);
-            ub_light.AddDataf(&light_color[0], 3);
-            ub_light.AddDataf(&light_intensity, 1);
+            ubLight.AddDataf(&lightDirection[0], 4, true);
+            ubLight.AddDataf(&lightColor[0], 3);
+            ubLight.AddDataf(&lightIntensity, 1);
         }
 
 		const float time = glfwGetTime();
@@ -328,24 +335,24 @@ int main(void)
 
             ImGui_ImplOpenGL3_NewFrame(); 
             ImGui_ImplGlfw_NewFrame();
-            ImGui::NewFrame();
+            NewFrame();
             
-                ImGui::Checkbox("Orthographic", &isOrtho);
+                Checkbox("Orthographic", &isOrtho);
 
-                ImGui::SliderFloat("fov", fov, 0.0f, 180.f);
-                ImGui::SliderFloat("near_plane", &near_plane, 0.0f, 100.0f);
-                ImGui::SliderFloat("far_plane", &far_plane, 0.0f, 10000.0f);
+                SliderFloat("fov", fov, 0.0f, 180.f);
+                SliderFloat("nearPlane", &nearPlane, 0.0f, 100.0f);
+                SliderFloat("farPlane", &farPlane, 0.0f, 10000.0f);
                 
-                ImGui::SliderFloat3("origin", &cameraOrigin[0], -100.0f, 100.0f);
-                ImGui::SliderFloat3("lookat", &(*target)[0], -100.0f, 100.0f);
+                SliderFloat3("origin", &cameraOrigin[0], -100.0f, 100.0f);
+                SliderFloat3("lookat", &(*target)[0], -100.0f, 100.0f);
 
-                ImGui::SliderFloat("azimuth", azimuth, -180.0f, 180.0f);
-				ImGui::SliderFloat("elevation", elevation, -90.0f, 90.0f);
-				ImGui::SliderFloat("distance", distance, -100.0f, 100.0f);
+                SliderFloat("azimuth", azimuth, -180.0f, 180.0f);
+				SliderFloat("elevation", elevation, -90.0f, 90.0f);
+				SliderFloat("distance", distance, -100.0f, 100.0f);
 				
-				ImGui::SliderFloat("speed", speed, 0.0f, 10.0f);
+				SliderFloat("speed", speed, 0.0f, 10.0f);
 
-            ImGui::Render();
+            Render();
         }
 
 
@@ -359,7 +366,7 @@ int main(void)
        
         skybox->Render();
 
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        ImGui_ImplOpenGL3_RenderDrawData(GetDrawData());
         
         glfwSwapBuffers(window);
 
@@ -367,10 +374,10 @@ int main(void)
 
     } 
 
-    cleanUp();
+    DeinitializeScene();
 
     ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    DestroyContext();
 
     glfwTerminate();
     return 0;

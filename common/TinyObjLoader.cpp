@@ -4,18 +4,18 @@
 #endif
 
 #include "../libs/tinyobjloader/tiny_obj_loader.h" 
-#include "Object_Loader.h"
+#include "TinyObjLoader.h"
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Struct.h"
+#include "ObjData.h"
 #include "../common/Texture.h"
 #include "../common/GLObject.h"
 #include "../libs/stb/stb_image.h"
 #include "../common/BufferLayout.h"
 #include "Vertex.h"
 
-bool Object_Loader::ImportObject(const std::string& path, GLObject& object) {
+bool TinyObjLoader::ImportObject(const std::string& path, GLObject& object) {
     tinyobj::ObjReader reader;
     if (!reader.ParseFromFile(path)) { std::cerr << "Failed to read object path : " << path << std::endl; return false; }
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../common/Struct.h"
+#include "../common/ObjData.h"
 #include "../common/GLShader.h"
 #include "../common/VertexArray.h"
 #include "../common/VertexBuffer.h"

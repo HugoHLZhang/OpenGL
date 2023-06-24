@@ -57,7 +57,7 @@
     <ClCompile Include="..\glutilities\VertexBuffer.cpp">
       <Filter>glutilities</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\Object_Loader.cpp">
+    <ClCompile Include="..\common\TinyObjLoader.cpp">
       <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,10 +104,10 @@
     <ClInclude Include="..\common\Matrix.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Object_Loader.h">
+    <ClInclude Include="..\common\TinyObjLoader.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Struct.h">
+    <ClInclude Include="..\common\ObjData.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\common\Vector.h">

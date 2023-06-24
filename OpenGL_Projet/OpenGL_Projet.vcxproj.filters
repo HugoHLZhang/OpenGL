@@ -5,7 +5,7 @@
     <ClCompile Include="..\common\GLShader.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\Object_Loader.cpp">
+    <ClCompile Include="..\common\TinyObjLoader.cpp">
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="..\libs\imgui\imgui.cpp">
@@ -61,10 +61,10 @@
     <ClInclude Include="..\common\Matrix.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Object_Loader.h">
+    <ClInclude Include="..\common\TinyObjLoader.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\Struct.h">
+    <ClInclude Include="..\common\ObjData.h">
       <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\common\Vertex.h">
@@ -127,18 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shaders\Ambient_Diffuse_Specular.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\shaders\Ambient.fs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\shaders\Ambient.vs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\shaders\Ambient_Diffuse.fs">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\shaders\Ambient_Diffuse.vs">
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\shaders\Ambient_Diffuse_Specular.fs">

@@ -143,7 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\common\GLShader.cpp" />
-    <ClCompile Include="..\common\Object_Loader.cpp" />
+    <ClCompile Include="..\common\TinyObjLoader.cpp" />
     <ClCompile Include="..\glutilities\Camera.cpp" />
     <ClCompile Include="..\glutilities\GLObject.cpp" />
     <ClCompile Include="..\glutilities\IndexBuffer.cpp" />
@@ -157,8 +157,8 @@
   <ItemGroup>
     <ClInclude Include="..\common\GLShader.h" />
     <ClInclude Include="..\common\Matrix.h" />
-    <ClInclude Include="..\common\Object_Loader.h" />
-    <ClInclude Include="..\common\Struct.h" />
+    <ClInclude Include="..\common\TinyObjLoader.h" />
+    <ClInclude Include="..\common\ObjData.h" />
     <ClInclude Include="..\common\Vector.h" />
     <ClInclude Include="..\glutilities\BufferLayout.h" />
     <ClInclude Include="..\glutilities\Camera.h" />

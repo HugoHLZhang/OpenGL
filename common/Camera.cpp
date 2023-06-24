@@ -11,7 +11,7 @@ Camera::Camera(const Vector3& position, const Vector3& origin, const Vector3& ta
 	elevation = 0;
 	distance = 0;
 	sensitivity = 0.1f;
-	speed = 0.1f;
+	speed = 5;
 }
 
 Camera::~Camera()

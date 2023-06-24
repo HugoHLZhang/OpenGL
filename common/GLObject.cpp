@@ -1,6 +1,6 @@
 #pragma once
 #include "GLObject.h"
-#include "../common/Struct.h"
+#include "../common/ObjData.h"
 #include "../common/VertexArray.h"
 #include "../common/VertexBuffer.h"
 #include "../common/BufferLayout.h"
