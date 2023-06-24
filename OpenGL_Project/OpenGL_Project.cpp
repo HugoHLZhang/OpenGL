@@ -6,7 +6,7 @@
 #define GLEW_STATIC 1
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "../common/Struct.h"
+#include "../common/ObjData.h"
 
 #include "../common/GLShader.h"
 #include "../common/Matrix.h"
